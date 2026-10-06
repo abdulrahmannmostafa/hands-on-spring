@@ -8,8 +8,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
-import jakarta.persistence.CascadeType;
-
 @Entity
 @Table(name = "instructor_detail")
 public class InstructorDetail {
@@ -25,7 +23,9 @@ public class InstructorDetail {
     @Column(name = "hobby")
     private String hobby;
 
-    @OneToOne(mappedBy = "instructorDetail", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "instructorDetail", cascade = {
+            jakarta.persistence.CascadeType.DETACH, jakarta.persistence.CascadeType.MERGE,
+            jakarta.persistence.CascadeType.PERSIST, jakarta.persistence.CascadeType.REFRESH })
     private Instructor instructor;
 
     public InstructorDetail() {

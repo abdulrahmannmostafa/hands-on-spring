@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import com.qeema.demo.dao.AppDAO;
-
 import com.qeema.demo.entity.Instructor;
 import com.qeema.demo.entity.InstructorDetail;
 
@@ -22,9 +21,9 @@ public class Demo {
 		return runner -> {
 			// createInstructor(appDAO);
 			// findInstructor(appDAO);
-			findInstructorDetail(appDAO);
+			// findInstructorDetail(appDAO);
 			// deleteInstructor(appDAO);
-			// deleteInstructorDetail(appDAO);
+			deleteInstructorDetail(appDAO);
 
 		};
 	}
@@ -66,7 +65,7 @@ public class Demo {
 	}
 
 	private void deleteInstructorDetail(AppDAO appDAO) {
-		int instructorDetailId = 2;
+		int instructorDetailId = 4;
 		System.out.println("Deleting instructor detail with id: " + instructorDetailId);
 		appDAO.deleteInstructorDetailById(instructorDetailId);
 		System.out.println("Done deleting the instructor detail!");
