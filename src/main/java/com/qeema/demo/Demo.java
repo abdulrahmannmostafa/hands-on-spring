@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import com.qeema.demo.dao.AccountDAO;
+import com.qeema.demo.dao.MembershipDAO;
 
 @SpringBootApplication
 public class Demo {
@@ -15,18 +16,15 @@ public class Demo {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(AccountDAO accountDAO) {
+	public CommandLineRunner commandLineRunner(AccountDAO accountDAO, MembershipDAO membershipDAO) {
 		return runner -> {
-			demoBeforeAdvice(accountDAO);
-
-			System.out.println("Let's do it again");
-
-			demoBeforeAdvice(accountDAO);
+			demoBeforeAdvice(accountDAO, membershipDAO);
 		};
 	}
 
-	private void demoBeforeAdvice(AccountDAO accountDAO) {
+	private void demoBeforeAdvice(AccountDAO accountDAO, MembershipDAO membershipDAO) {
 		accountDAO.addAccount();
+		membershipDAO.addAccount();
 	}
 
 }
