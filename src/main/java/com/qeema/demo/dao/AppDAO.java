@@ -1,6 +1,7 @@
 package com.qeema.demo.dao;
 
 import com.qeema.demo.entity.Course;
+import com.qeema.demo.entity.Review;
 import com.qeema.demo.entity.Instructor;
 import com.qeema.demo.entity.InstructorDetail;
 
@@ -9,6 +10,8 @@ import java.util.List;
 public interface AppDAO {
 
     void saveCourse(Course course);
+
+    void saveReview(Review review);
 
     void saveInstructor(Instructor instructor);
 

@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.qeema.demo.entity.Course;
+import com.qeema.demo.entity.Review;
 import com.qeema.demo.entity.Instructor;
 import com.qeema.demo.entity.InstructorDetail;
 
@@ -23,6 +24,12 @@ public class AppDAOImpl implements AppDAO {
     @Transactional
     public void saveCourse(Course course) {
         this.entityManager.persist(course);
+    }
+
+    @Override
+    @Transactional
+    public void saveReview(Review review) {
+        this.entityManager.persist(review);
     }
 
     @Override

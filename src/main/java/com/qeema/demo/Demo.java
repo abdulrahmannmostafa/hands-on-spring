@@ -6,9 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import com.qeema.demo.dao.AppDAO;
+import com.qeema.demo.entity.Course;
+import com.qeema.demo.entity.Review;
 import com.qeema.demo.entity.Instructor;
 import com.qeema.demo.entity.InstructorDetail;
-import com.qeema.demo.entity.Course;
 
 import java.util.List;
 
@@ -22,10 +23,11 @@ public class Demo {
 	@Bean
 	public CommandLineRunner commandLineRunner(AppDAO appDAO) {
 		return runner -> {
+			createCourse(appDAO);
 			// createInstructor(appDAO);
 			// findInstructor(appDAO);
 			// findInstructorWithCourses(appDAO);
-			findInstructorWithCoursesJoinFetch(appDAO);
+			// findInstructorWithCoursesJoinFetch(appDAO);
 			// findInstructorDetail(appDAO);
 			// deleteInstructor(appDAO);
 			// deleteInstructorDetail(appDAO);
@@ -56,6 +58,31 @@ public class Demo {
 		appDAO.saveInstructor(instructor);
 
 		System.out.println("Done saving the instructor!");
+	}
+
+	private void createCourse(AppDAO appDAO) {
+		// create the course
+		System.out.println("Creating new course object...");
+
+		Course course = new Course("Spring Framework");
+		Review review1 = new Review("Great course!");
+		Review review2 = new Review("Very informative.");
+
+		Instructor instructor = new Instructor("Abdelrahman", "Mostafa", "abdelrahman.mostafa@example.com");
+		InstructorDetail instructorDetail = new InstructorDetail("http://www.youtube.com/abdomostafa", "Coding");
+
+		instructorDetail.setInstructor(instructor);
+		instructor.setInstructorDetail(instructorDetail);
+
+		course.setInstructor(instructor);
+		instructor.addCourse(course);
+
+		course.addReview(review1);
+		course.addReview(review2);
+
+		appDAO.saveCourse(course);
+
+		System.out.println("Done saving the course!");
 	}
 
 	private void findInstructor(AppDAO appDAO) {

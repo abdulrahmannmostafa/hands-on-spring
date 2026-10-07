@@ -106,6 +106,13 @@ public class Instructor {
         course.setInstructor(this);
     }
 
+    public void removeCourse(Course course) {
+        if (courses != null) {
+            courses.remove(course);
+            course.setInstructor(null);
+        }
+    }
+
     @Override
     public String toString() {
         return "Instructor [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
