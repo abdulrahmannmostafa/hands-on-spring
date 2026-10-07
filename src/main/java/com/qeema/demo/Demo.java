@@ -24,7 +24,8 @@ public class Demo {
 		return runner -> {
 			// createInstructor(appDAO);
 			// findInstructor(appDAO);
-			findInstructorWithCourses(appDAO);
+			// findInstructorWithCourses(appDAO);
+			findInstructorWithCoursesJoinFetch(appDAO);
 			// findInstructorDetail(appDAO);
 			// deleteInstructor(appDAO);
 			// deleteInstructorDetail(appDAO);
@@ -72,6 +73,14 @@ public class Demo {
 		instructor.setCourses(courses); // associate the courses with the instructor
 		System.out.println("Found instructor: " + instructor);
 		System.out.println("Courses: " + courses);
+	}
+
+	private void findInstructorWithCoursesJoinFetch(AppDAO appDAO) {
+		int instructorId = 18;
+		System.out.println("Finding instructor with id: " + instructorId);
+		Instructor instructor = appDAO.findInstructorByIdJoinFetch(instructorId);
+		System.out.println("Found instructor: " + instructor);
+		System.out.println("Courses: " + instructor.getCourses());
 	}
 
 	private void findCoursesForInstructor(AppDAO appDAO, int id) {
