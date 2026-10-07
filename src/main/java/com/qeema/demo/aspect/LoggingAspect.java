@@ -12,7 +12,7 @@ public class LoggingAspect {
      * this would run that function before we call the pointcut method which is our
      * addAccount() method in AccountDAOImpl class
      */
-    @Before("execution(public void add*())")
+    @Before("execution(void add*())")
     public void beforeAddAccountAdvice() {
         System.out.println(getClass() + ": Executing @Before advice on addAccount()");
     }
