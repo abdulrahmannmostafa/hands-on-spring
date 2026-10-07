@@ -3,6 +3,7 @@ package com.qeema.demo.dao;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.qeema.demo.entity.Course;
 import com.qeema.demo.entity.Instructor;
 import com.qeema.demo.entity.InstructorDetail;
 
@@ -18,8 +19,26 @@ public class AppDAOImpl implements AppDAO {
 
     @Override
     @Transactional
-    public void save(Instructor instructor) {
+    public void saveCourse(Course course) {
+        this.entityManager.persist(course);
+    }
+
+    @Override
+    @Transactional
+    public void saveInstructor(Instructor instructor) {
         this.entityManager.persist(instructor);
+    }
+
+    @Override
+    @Transactional
+    public void saveInstructorDetail(InstructorDetail instructorDetail) {
+        this.entityManager.persist(instructorDetail);
+    }
+
+    @Override
+    @Transactional
+    public Course findCourseById(int id) {
+        return this.entityManager.find(Course.class, id);
     }
 
     @Override
@@ -30,9 +49,26 @@ public class AppDAOImpl implements AppDAO {
 
     @Override
     @Transactional
+    public InstructorDetail findInstructorDetailById(int id) {
+        return this.entityManager.find(InstructorDetail.class, id);
+    }
+
+    @Override
+    @Transactional
+    public void deleteCourseById(int id) {
+        Course course = findCourseById(id);
+        if (course != null) {
+            course.getInstructor().setCourses(null);
+            this.entityManager.remove(course);
+        }
+    }
+
+    @Override
+    @Transactional
     public void deleteInstructorById(int id) {
         Instructor instructor = findInstructorById(id);
         if (instructor != null) {
+            instructor.getCourses().stream().forEach(course -> course.setInstructor(null));
             this.entityManager.remove(instructor);
         }
     }
@@ -47,9 +83,4 @@ public class AppDAOImpl implements AppDAO {
         }
     }
 
-    @Override
-    @Transactional
-    public InstructorDetail findInstructorDetailById(int id) {
-        return this.entityManager.find(InstructorDetail.class, id);
-    }
 }
