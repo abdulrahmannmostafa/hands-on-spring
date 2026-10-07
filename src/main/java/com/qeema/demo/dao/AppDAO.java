@@ -4,6 +4,8 @@ import com.qeema.demo.entity.Course;
 import com.qeema.demo.entity.Instructor;
 import com.qeema.demo.entity.InstructorDetail;
 
+import java.util.List;
+
 public interface AppDAO {
 
     void saveCourse(Course course);
@@ -13,6 +15,8 @@ public interface AppDAO {
     void saveInstructorDetail(InstructorDetail instructorDetail);
 
     Course findCourseById(int id);
+
+    List<Course> findCoursesByInstructorId(int instructorId);
 
     Instructor findInstructorById(int id);
 

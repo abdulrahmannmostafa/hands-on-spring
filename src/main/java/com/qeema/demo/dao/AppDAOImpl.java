@@ -9,6 +9,8 @@ import com.qeema.demo.entity.InstructorDetail;
 
 import jakarta.persistence.EntityManager;
 
+import java.util.List;
+
 @Repository
 public class AppDAOImpl implements AppDAO {
     private final EntityManager entityManager;
@@ -39,6 +41,15 @@ public class AppDAOImpl implements AppDAO {
     @Transactional
     public Course findCourseById(int id) {
         return this.entityManager.find(Course.class, id);
+    }
+
+    @Override
+    @Transactional
+    public List<Course> findCoursesByInstructorId(int instructorId) {
+        return this.entityManager
+                .createQuery("SELECT c FROM Course c WHERE c.instructor.id = :instructorId", Course.class)
+                .setParameter("instructorId", instructorId)
+                .getResultList();
     }
 
     @Override

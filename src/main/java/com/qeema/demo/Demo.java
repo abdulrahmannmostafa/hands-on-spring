@@ -10,7 +10,7 @@ import com.qeema.demo.entity.Instructor;
 import com.qeema.demo.entity.InstructorDetail;
 import com.qeema.demo.entity.Course;
 
-import java.util.Arrays;
+import java.util.List;
 
 @SpringBootApplication
 public class Demo {
@@ -24,8 +24,9 @@ public class Demo {
 		return runner -> {
 			// createInstructor(appDAO);
 			// findInstructor(appDAO);
+			findInstructorWithCourses(appDAO);
 			// findInstructorDetail(appDAO);
-			deleteInstructor(appDAO);
+			// deleteInstructor(appDAO);
 			// deleteInstructorDetail(appDAO);
 
 		};
@@ -61,6 +62,28 @@ public class Demo {
 		System.out.println("Finding instructor with id: " + instructorId);
 		Instructor instructor = appDAO.findInstructorById(instructorId);
 		System.out.println("Found instructor: " + instructor);
+	}
+
+	private void findInstructorWithCourses(AppDAO appDAO) {
+		int instructorId = 18;
+		System.out.println("Finding instructor with id: " + instructorId);
+		Instructor instructor = appDAO.findInstructorById(instructorId);
+		List<Course> courses = appDAO.findCoursesByInstructorId(instructorId);
+		instructor.setCourses(courses); // associate the courses with the instructor
+		System.out.println("Found instructor: " + instructor);
+		System.out.println("Courses: " + courses);
+	}
+
+	private void findCoursesForInstructor(AppDAO appDAO, int id) {
+		System.out.println("Finding courses for instructor with id: " + id);
+		List<Course> courses = appDAO.findCoursesByInstructorId(id);
+		System.out.println("Found courses: " + courses);
+	}
+
+	private void findCourseById(AppDAO appDAO, int id) {
+		System.out.println("Finding course with id: " + id);
+		Course course = appDAO.findCourseById(id);
+		System.out.println("Found course: " + course);
 	}
 
 	private void findInstructorDetail(AppDAO appDAO) {
