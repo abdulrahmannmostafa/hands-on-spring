@@ -23,7 +23,8 @@ public class Demo {
 	}
 
 	private void demoBeforeAdvice(AccountDAO accountDAO, MembershipDAO membershipDAO) {
-		accountDAO.addAccount();
+		Account account = new Account("John", "Silver");
+		accountDAO.addAccount(account, true);
 		membershipDAO.addAccount();
 	}
 
