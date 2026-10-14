@@ -42,6 +42,14 @@ public class LoggingAspect {
         System.out.println("Method: " + methodSignature);
 
         System.out.println("Result: " + accounts);
+
+        if (!accounts.isEmpty()) {
+            Account firstAccount = accounts.get(0);
+            firstAccount.setName(firstAccount.getName().toUpperCase());
+        }
+
+        System.out.println("Modified Result: " + accounts);
+
     }
 
 }
