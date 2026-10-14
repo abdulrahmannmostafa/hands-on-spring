@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -50,6 +51,16 @@ public class LoggingAspect {
 
         System.out.println("Modified Result: " + accounts);
 
+    }
+
+    @AfterThrowing(pointcut = "com.qeema.demo.aspect.AOPExpressions.findAccountsOperation()", throwing = "exception")
+    public void afterThrowingFindAccountsAdvice(JoinPoint joinPoint, Throwable exception) {
+        System.out.println(getClass() + ": Executing @AfterThrowing advice on findAccounts()");
+
+        String methodSignature = joinPoint.getSignature().toShortString();
+        System.out.println("Method: " + methodSignature);
+
+        System.out.println("Exception: " + exception);
     }
 
 }

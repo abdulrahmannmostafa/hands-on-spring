@@ -55,4 +55,22 @@ public class AccountDAOImpl implements AccountDAO {
         System.out.println(getClass() + ": in findAccounts()");
         return accounts;
     }
+
+    @Override
+    public List<Account> findAccounts(boolean tripWire) {
+
+        if (tripWire) {
+            throw new RuntimeException("No soup for you!");
+        }
+
+        List<Account> accounts = new ArrayList<>();
+        Account account1 = new Account("John", "Silver");
+        Account account2 = new Account("Madhu", "Platinum");
+        Account account3 = new Account("Luca", "Gold");
+        accounts.add(account1);
+        accounts.add(account2);
+        accounts.add(account3);
+        System.out.println(getClass() + ": in findAccounts()");
+        return accounts;
+    }
 }

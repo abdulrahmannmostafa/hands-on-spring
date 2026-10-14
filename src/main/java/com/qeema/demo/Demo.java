@@ -22,7 +22,8 @@ public class Demo {
 	public CommandLineRunner commandLineRunner(AccountDAO accountDAO, MembershipDAO membershipDAO) {
 		return runner -> {
 			// demoBeforeAdvice(accountDAO, membershipDAO);
-			demoAfterReturningAdvice(accountDAO);
+			// demoAfterReturningAdvice(accountDAO);
+			demoAfterThrowingAdvice(accountDAO);
 		};
 	}
 
@@ -46,6 +47,19 @@ public class Demo {
 
 		System.out.println("\n\nMain Program: AfterReturningDemoApp");
 		System.out.println("Returned accounts: " + accounts);
+	}
+
+	private void demoAfterThrowingAdvice(AccountDAO accountDAO) {
+		System.out.println("\n\nMain Program: AfterThrowingDemoApp");
+		System.out.println("Calling findAccounts()");
+
+		try {
+			boolean tripWire = true;
+			List<Account> accounts = accountDAO.findAccounts(tripWire);
+		} catch (Exception e) {
+			System.out.println("\n\nMain Program: AfterThrowingDemoApp");
+			System.out.println("Exception caught: " + e);
+		}
 	}
 
 }
