@@ -3,8 +3,10 @@ package com.qeema.demo.aspect;
 import java.util.List;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -12,6 +14,8 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.qeema.demo.entity.Account;
+
+import org.aspectj.lang.ProceedingJoinPoint;
 
 @Aspect
 @Component
@@ -61,6 +65,29 @@ public class LoggingAspect {
         System.out.println("Method: " + methodSignature);
 
         System.out.println("Exception: " + exception);
+    }
+
+    @After("com.qeema.demo.aspect.AOPExpressions.findAccountsOperation()")
+    public void afterFindAccountsAdvice(JoinPoint joinPoint) {
+        System.out.println(getClass() + ": Executing @After (finally) advice on findAccounts()");
+
+        String methodSignature = joinPoint.getSignature().toShortString();
+        System.out.println("Method: " + methodSignature);
+    }
+
+    @Around("com.qeema.demo.aspect.AOPExpressions.getFortuneOperation()")
+    public Object aroundGetFortuneAdvice(ProceedingJoinPoint joinPoint) throws Throwable {
+        System.out.println(getClass() + ": Executing @Around advice on getFortune()");
+
+        long start = System.currentTimeMillis();
+
+        Object result = joinPoint.proceed();
+
+        long end = System.currentTimeMillis();
+
+        System.out.println("Execution time: " + (end - start) + " ms");
+
+        return result;
     }
 
 }

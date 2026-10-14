@@ -11,6 +11,8 @@ import com.qeema.demo.dao.AccountDAO;
 import com.qeema.demo.dao.MembershipDAO;
 import com.qeema.demo.entity.Account;
 
+import com.qeema.demo.service.TrafficFortuneService;
+
 @SpringBootApplication
 public class Demo {
 
@@ -19,11 +21,14 @@ public class Demo {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(AccountDAO accountDAO, MembershipDAO membershipDAO) {
+	public CommandLineRunner commandLineRunner(AccountDAO accountDAO, MembershipDAO membershipDAO,
+			TrafficFortuneService trafficFortuneService) {
 		return runner -> {
 			// demoBeforeAdvice(accountDAO, membershipDAO);
 			// demoAfterReturningAdvice(accountDAO);
-			demoAfterThrowingAdvice(accountDAO);
+			// demoAfterThrowingAdvice(accountDAO);
+			// demoAfterAdvice(accountDAO);
+			demoAroundAdvice(trafficFortuneService);
 		};
 	}
 
@@ -60,6 +65,26 @@ public class Demo {
 			System.out.println("\n\nMain Program: AfterThrowingDemoApp");
 			System.out.println("Exception caught: " + e);
 		}
+	}
+
+	private void demoAfterAdvice(AccountDAO accountDAO) {
+		System.out.println("\n\nMain Program: AfterDemoApp");
+		System.out.println("Calling findAccounts()");
+
+		List<Account> accounts = accountDAO.findAccounts();
+
+		System.out.println("\n\nMain Program: AfterDemoApp");
+		System.out.println("Returned accounts: " + accounts);
+	}
+
+	private void demoAroundAdvice(TrafficFortuneService trafficFortuneService) {
+		System.out.println("\n\nMain Program: AroundDemoApp");
+		System.out.println("Calling getFortune()");
+
+		String data = trafficFortuneService.getFortune();
+
+		System.out.println("\n\nMain Program: AroundDemoApp");
+		System.out.println("My fortune is: " + data);
 	}
 
 }

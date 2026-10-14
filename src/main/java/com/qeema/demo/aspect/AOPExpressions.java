@@ -23,4 +23,8 @@ public class AOPExpressions {
     @Pointcut("execution(* com.qeema.demo.dao.*.findAccounts(..))")
     public void findAccountsOperation() {
     }
+
+    @Pointcut("execution(* com.qeema.demo.service.*.getFortune(..))")
+    public void getFortuneOperation() {
+    }
 }
