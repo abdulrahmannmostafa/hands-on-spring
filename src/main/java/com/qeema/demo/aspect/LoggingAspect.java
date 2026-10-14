@@ -100,7 +100,7 @@ public class LoggingAspect {
             result = joinPoint.proceed();
         } catch (Exception e) {
             System.out.println("Exception caught in @Around advice: " + e);
-            result = "Major accident! But no worries, your private AOP helicopter is on the way!";
+            throw e; // rethrow the exception to propagate it further
         }
 
         return result;
