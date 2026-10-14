@@ -1,6 +1,9 @@
 package com.qeema.demo.aspect;
 
+import java.util.List;
+
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -29,6 +32,16 @@ public class LoggingAspect {
                 System.out.println("Account service code: " + account.getLevel());
             }
         }
+    }
+
+    @AfterReturning(pointcut = "com.qeema.demo.aspect.AOPExpressions.findAccountsOperation()", returning = "accounts")
+    public void afterReturningFindAccountsAdvice(JoinPoint joinPoint, List<Account> accounts) {
+        System.out.println(getClass() + ": Executing @AfterReturning advice on findAccounts()");
+
+        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+        System.out.println("Method: " + methodSignature);
+
+        System.out.println("Result: " + accounts);
     }
 
 }

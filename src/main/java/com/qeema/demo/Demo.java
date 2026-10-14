@@ -1,5 +1,7 @@
 package com.qeema.demo;
 
+import java.util.List;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,7 +21,8 @@ public class Demo {
 	@Bean
 	public CommandLineRunner commandLineRunner(AccountDAO accountDAO, MembershipDAO membershipDAO) {
 		return runner -> {
-			demoBeforeAdvice(accountDAO, membershipDAO);
+			// demoBeforeAdvice(accountDAO, membershipDAO);
+			demoAfterReturningAdvice(accountDAO);
 		};
 	}
 
@@ -33,6 +36,16 @@ public class Demo {
 		String name = accountDAO.getName();
 		Integer serviceCode = accountDAO.getServiceCode();
 		membershipDAO.addAccount();
+	}
+
+	private void demoAfterReturningAdvice(AccountDAO accountDAO) {
+		System.out.println("\n\nMain Program: AfterReturningDemoApp");
+		System.out.println("Calling findAccounts()");
+
+		List<Account> accounts = accountDAO.findAccounts();
+
+		System.out.println("\n\nMain Program: AfterReturningDemoApp");
+		System.out.println("Returned accounts: " + accounts);
 	}
 
 }

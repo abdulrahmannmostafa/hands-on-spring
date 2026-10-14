@@ -19,4 +19,8 @@ public class AOPExpressions {
     @Pointcut("daoOperation() && !(getOperation() || setOperation())")
     public void daoOperationExcludingGettersAndSetters() {
     }
+
+    @Pointcut("execution(* com.qeema.demo.dao.*.findAccounts(..))")
+    public void findAccountsOperation() {
+    }
 }
