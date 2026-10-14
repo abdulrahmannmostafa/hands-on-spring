@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 
 import com.qeema.demo.dao.AccountDAO;
 import com.qeema.demo.dao.MembershipDAO;
+import com.qeema.demo.entity.Account;
 
 @SpringBootApplication
 public class Demo {
@@ -23,8 +24,14 @@ public class Demo {
 	}
 
 	private void demoBeforeAdvice(AccountDAO accountDAO, MembershipDAO membershipDAO) {
-		Account account = new Account("John", "Silver");
+		Account account = new Account();
+		accountDAO.setName("foobar");
+		accountDAO.setServiceCode(123);
+		accountDAO.getName();
+		accountDAO.getServiceCode();
 		accountDAO.addAccount(account, true);
+		String name = accountDAO.getName();
+		Integer serviceCode = accountDAO.getServiceCode();
 		membershipDAO.addAccount();
 	}
 

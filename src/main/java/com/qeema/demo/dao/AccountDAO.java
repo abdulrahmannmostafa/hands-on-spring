@@ -1,7 +1,11 @@
 package com.qeema.demo.dao;
 
-import com.qeema.demo.Account;
+import com.qeema.demo.entity.Account;
 
 public interface AccountDAO {
     void addAccount(Account account, boolean vipFlag);
+    String getName();
+    void setName(String name);
+    Integer getServiceCode();
+    void setServiceCode(Integer serviceCode);
 }

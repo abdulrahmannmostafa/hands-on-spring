@@ -1,4 +1,4 @@
-package com.qeema.demo;
+package com.qeema.demo.entity;
 
 public class Account {
 
