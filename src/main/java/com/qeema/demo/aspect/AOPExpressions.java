@@ -8,7 +8,7 @@ public class AOPExpressions {
     public void daoOperation() {
     }
 
-    @Pointcut("execution(* com.qeema.demao.dao.*.get*(..))")
+    @Pointcut("execution(* com.qeema.demo.dao.*.get*(..))")
     public void getOperation() {
     }
 
