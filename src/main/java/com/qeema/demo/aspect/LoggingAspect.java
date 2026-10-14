@@ -85,7 +85,23 @@ public class LoggingAspect {
 
         long end = System.currentTimeMillis();
 
-        System.out.println("Execution time: " + (end - start) + " ms");
+        System.out.println("Execution time: " + (end - start) / 1000.0 + " s");
+
+        return result;
+    }
+
+    @Around("com.qeema.demo.aspect.AOPExpressions.getFortuneOperation()")
+    public Object aroundGetFortuneAdviceWithExceptionHandling(ProceedingJoinPoint joinPoint) throws Throwable {
+        System.out.println(getClass() + ": Executing @Around advice on getFortune() with exception handling");
+
+        Object result = null;
+
+        try {
+            result = joinPoint.proceed();
+        } catch (Exception e) {
+            System.out.println("Exception caught in @Around advice: " + e);
+            result = "Major accident! But no worries, your private AOP helicopter is on the way!";
+        }
 
         return result;
     }

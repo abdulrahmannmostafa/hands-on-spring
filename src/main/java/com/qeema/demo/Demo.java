@@ -28,7 +28,8 @@ public class Demo {
 			// demoAfterReturningAdvice(accountDAO);
 			// demoAfterThrowingAdvice(accountDAO);
 			// demoAfterAdvice(accountDAO);
-			demoAroundAdvice(trafficFortuneService);
+			// demoAroundAdvice(trafficFortuneService);
+			demoAroundAdviceWithExceptionHandling(trafficFortuneService);
 		};
 	}
 
@@ -82,6 +83,17 @@ public class Demo {
 		System.out.println("Calling getFortune()");
 
 		String data = trafficFortuneService.getFortune();
+
+		System.out.println("\n\nMain Program: AroundDemoApp");
+		System.out.println("My fortune is: " + data);
+	}
+
+	private void demoAroundAdviceWithExceptionHandling(TrafficFortuneService trafficFortuneService) {
+		System.out.println("\n\nMain Program: AroundDemoApp");
+		System.out.println("Calling getFortune()");
+
+		boolean tripWire = true;
+		String data = trafficFortuneService.getFortune(tripWire);
 
 		System.out.println("\n\nMain Program: AroundDemoApp");
 		System.out.println("My fortune is: " + data);
